@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=400">
+  <title>HohoHub Alert System</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">🔔</div>
+        <div>
+          <h1 class="title">HohoHub Alert</h1>
+          <p class="subtitle">Auto-alert & copy from Discord</p>
+        </div>
+      </div>
+      <div class="status-dot" id="statusDot"></div>
+    </header>
+
+    <!-- Main Toggle -->
+    <div class="section toggle-section">
+      <div class="toggle-row">
+        <span class="toggle-label">Auto-Alert & Copy</span>
+        <label class="switch">
+          <input type="checkbox" id="enabledToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <p class="toggle-desc" id="toggleDesc">Watching for fruits...</p>
+    </div>
+
+    <!-- 🍎 FRUIT WATCH LIST — see & edit what fruits to look for -->
+    <div class="section">
+      <div class="fruit-header">
+        <h2 class="section-title">Fruit Watch List</h2>
+        <button class="btn-add-fruit" id="addFruitBtn">+ Add</button>
+      </div>
+      <p class="fruit-hint">Toggle fruits on/off. Only enabled fruits trigger alerts.</p>
+      <div class="fruit-list" id="fruitList">
+        <!-- dynamically populated -->
+      </div>
+      <!-- Add fruit form (hidden by default) -->
+      <div class="fruit-add-form" id="fruitAddForm">
+        <input type="text" id="newFruitName" class="fruit-add-input" placeholder="Fruit name (e.g. Quake)">
+        <select id="newFruitColor" class="fruit-add-color">
+          <option value="#E74C3C">🔴 Red</option>
+          <option value="#FFA500">🟠 Orange</option>
+          <option value="#FFD700">🟡 Gold</option>
+          <option value="#57F287">🟢 Green</option>
+          <option value="#00BFFF">🔵 Blue</option>
+          <option value="#9B59B6">🟣 Purple</option>
+          <option value="#E91E63">💗 Pink</option>
+          <option value="#95A5A6">⚪ Gray</option>
+        </select>
+        <button class="btn-confirm-add" id="confirmAddFruit">Add</button>
+        <button class="btn-cancel-add" id="cancelAddFruit">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Alert Settings -->
+    <div class="section">
+      <h2 class="section-title">Alert Settings</h2>
+
+      <div class="setting-row">
+        <label class="setting-label">Desktop Notifications</label>
+        <label class="switch switch-sm">
+          <input type="checkbox" id="desktopNotif">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <label class="setting-label">Alert Sound</label>
+        <label class="switch switch-sm">
+          <input type="checkbox" id="soundEnabled">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <label class="setting-label">Alert Duration</label>
+        <select id="alertDuration" class="setting-select">
+          <option value="5000">5 sec</option>
+          <option value="8000" selected>8 sec</option>
+          <option value="12000">12 sec</option>
+          <option value="15000">15 sec</option>
+          <option value="0">Until closed</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filter Settings -->
+    <div class="section">
+      <h2 class="section-title">Filters</h2>
+
+      <div class="setting-row">
+        <label class="setting-label">World Filter</label>
+        <select id="worldFilter" class="setting-select">
+          <option value="Sea 1">Sea 1</option>
+          <option value="Sea 2">Sea 2</option>
+          <option value="Sea 3" selected>Sea 3</option>
+          <option value="Sea 4">Sea 4</option>
+          <option value="Sea 5">Sea 5</option>
+          <option value="">All Seas</option>
+        </select>
+      </div>
+
+      <div class="setting-row">
+        <label class="setting-label">Copy Mode</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="copyMode" value="pc" checked>
+            <span>PC</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="copyMode" value="mobile">
+            <span>Mobile</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <label class="setting-label">Max History</label>
+        <input type="number" id="maxHistory" class="setting-input" min="10" max="200" value="50">
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="section">
+      <h2 class="section-title">Stats</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="totalCopied">0</div>
+          <div class="stat-label">Total Copied</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="todayCopied">0</div>
+          <div class="stat-label">Today</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="section history-section">
+      <div class="history-header">
+        <h2 class="section-title">History</h2>
+        <button class="btn-clear" id="clearHistory">Clear All</button>
+      </div>
+      <div class="history-list" id="historyList">
+        <div class="history-empty">No alerts yet</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>HohoHub Alert v2.0</span>
+      <span class="footer-sep">|</span>
+      <span>Works when minimized ✔</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

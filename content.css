@@ -1,0 +1,300 @@
+/* ============================================================
+   Content Script Styles — Alert overlay + Toast notification
+   Matches the dark theme screenshot design
+   ============================================================ */
+
+/* ---- Alert Overlay ---- */
+#hohohub-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#hohohub-alert.hoho-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hoho-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.hoho-card {
+  position: relative;
+  background: #1a1a2e;
+  border: 2px solid #5865F2;
+  border-radius: 16px;
+  padding: 24px;
+  min-width: 420px;
+  max-width: 520px;
+  box-shadow: 0 8px 40px rgba(88, 101, 242, 0.3), 0 0 80px rgba(88, 101, 242, 0.1);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #dcddde;
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#hohohub-alert.hoho-visible .hoho-card {
+  transform: scale(1);
+}
+
+/* Close Button */
+.hoho-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #72767d;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.hoho-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ---- Header ---- */
+.hoho-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #2a2a4a;
+}
+
+.hoho-header-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.hoho-header-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+/* ---- Three Column Info Row ---- */
+.hoho-info-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.hoho-info-col {
+  background: #0f0f1a;
+  border: 1px solid #2a2a4a;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.hoho-info-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #72767d;
+  margin-bottom: 6px;
+}
+
+.hoho-info-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  word-break: break-word;
+}
+
+/* ---- Section (Code Blocks) ---- */
+.hoho-section {
+  margin-bottom: 12px;
+}
+
+.hoho-section:last-of-type {
+  margin-bottom: 16px;
+}
+
+.hoho-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #00bfff;
+  margin-bottom: 6px;
+}
+
+.hoho-code-block {
+  background: #0a0a14;
+  border: 1px solid #2a2a4a;
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.hoho-code-block code {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 11px;
+  color: #b5bac1;
+  word-break: break-all;
+  line-height: 1.4;
+  flex: 1;
+  white-space: pre-wrap;
+}
+
+.hoho-code-block.hoho-script code {
+  font-size: 10px;
+  color: #57F287;
+}
+
+.hoho-copy-btn {
+  background: rgba(88, 101, 242, 0.2);
+  border: 1px solid rgba(88, 101, 242, 0.3);
+  color: #5865F2;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.hoho-copy-btn:hover {
+  background: rgba(88, 101, 242, 0.4);
+  border-color: #5865F2;
+}
+
+/* ---- Status Bar ---- */
+.hoho-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid #2a2a4a;
+}
+
+.hoho-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #57F287;
+  box-shadow: 0 0 8px rgba(87, 242, 135, 0.5);
+  animation: hoho-pulse 1.5s infinite;
+}
+
+@keyframes hoho-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.hoho-status-text {
+  font-size: 12px;
+  color: #57F287;
+  font-weight: 600;
+  flex: 1;
+}
+
+.hoho-recopy-btn {
+  background: rgba(88, 101, 242, 0.15);
+  border: 1px solid rgba(88, 101, 242, 0.3);
+  color: #5865F2;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 5px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.hoho-recopy-btn:hover {
+  background: rgba(88, 101, 242, 0.3);
+  border-color: #5865F2;
+}
+
+/* ============================================================
+   Toast notification — small popup
+   ============================================================ */
+#hohohub-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999998;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #1a1a2e;
+  border: 2px solid #5865F2;
+  border-radius: 14px;
+  padding: 14px 20px;
+  min-width: 260px;
+  max-width: 380px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(88, 101, 242, 0.2);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+#hohohub-toast.hoho-toast-show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.hoho-toast-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.hoho-toast-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.hoho-toast-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #57F287;
+  margin-bottom: 2px;
+}
+
+.hoho-toast-info {
+  font-size: 12px;
+  color: #b5bac1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hoho-toast-check {
+  font-size: 20px;
+  color: #57F287;
+  flex-shrink: 0;
+  font-weight: bold;
+}
